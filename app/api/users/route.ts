@@ -3,7 +3,7 @@ import { db } from '@/lib/db';
 export async function GET() {
   console.log("テーブル情報を取得します");
   const [rows] = await db.query(
-    'SELECT id, name, email FROM users'
+    'SELECT id, name, email, phone, age, created_at, updated_at FROM customers'
   );
 
   return Response.json(rows);
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     }
 
     await db.query(
-      'INSERT INTO customers (name, email, phone, age, updated_at , created_at) VALUES (?, ?, ?, ?, ?, ?)',
+      'INSERT INTO customers (name, email, phone, age, updated_at, created_at) VALUES (?, ?, ?, ?, ?, ?)',
       [name, email, phone, age, '2026-01-01','2026-01-01']
     );
 

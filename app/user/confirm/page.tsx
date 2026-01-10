@@ -13,8 +13,20 @@ export default function ConfirmPage() {
   const age = params.get('age');
 
   const handleSubmit = async () => {
-    router.push('/user/complete');
-  }
+    const res = await fetch('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, email, phone, age }),
+    });
+
+    if (res.ok) {
+      router.push('/user/complete');
+    } else {
+      alert('登録に失敗しました');
+    }
+  };
 
   return (
     <div>
