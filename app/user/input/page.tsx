@@ -1,12 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import HeaderComponents from '@/components/HeaderComponents';
 import FooterComponents from '@/components/FooterComponents';
 import { validateUserForm } from '@/app/lib/Validation';
 import type { ValidationErrors } from '@/app/lib/Validation';
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Stack,
+  Button,
+  TextField
+} from '@mui/material';
 
 export default function InputPage() {
 
@@ -16,7 +24,6 @@ export default function InputPage() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [age, setAge] = useState('');
-  const [result, setResult] = useState('');
 
   // エラー
   const [errors, setErrors] = useState<ValidationErrors>({});
@@ -30,7 +37,7 @@ export default function InputPage() {
       phone,
       age,
     });
-
+  
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length !== 0) return;
@@ -39,66 +46,67 @@ export default function InputPage() {
     );
   };
 
-  useEffect(() => {
-    console.log('初期表示');
-    setResult("000");
-  }, []);
-
-  useEffect(() => {
-    console.log('氏名編集');
-    setResult("111");
-  }, [name]);
-
-  useEffect(() => {
-    console.log('メール編集');
-    setResult("222");
-  }, [email]);
-
   return (
     <div>
-      <HeaderComponents />
-      <br/>
-      <div>氏名</div>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      {errors.name && <div style={{ color: 'red' }}>{errors.name}</div>}
-      <div>メールアドレス</div>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      {errors.email && <div style={{ color: 'red' }}>{errors.email}</div>}
-      <div>電話番号</div>
-      <input
-        type="number"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-      />
-      {errors.phone && <div style={{ color: 'red' }}>{errors.phone}</div>}
-      <div>年齢</div>
-      <input
-        type="number"
-        value={age}
-        onChange={(e) => setAge(e.target.value)}
-      />
-      {errors.age && <div style={{ color: 'red' }}>{errors.age}</div>}
+      <HeaderComponents 
+        systemName="顧客管理システム"
+        userName="山田 太郎"/>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="flex-start"
+        minHeight="100vh"
+        sx={{ bgcolor: '#f5f5f5', pt: 4 }}
+      >
+        <Card sx={{ width: 420 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              ユーザー情報入力
+            </Typography>
 
-      <div>{name}</div>
-      <div>{email}</div>
-      <div>{phone}</div>
-      <div>{age}</div>
+            <Stack spacing={2}>
+            <br/>
+            <div>氏名</div>
+            <TextField
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            {errors.name && <div style={{ color: 'red' }}>{errors.name}</div>}
+            <div>メールアドレス</div>
+            <TextField
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {errors.email && <div style={{ color: 'red' }}>{errors.email}</div>}
+            <div>電話番号</div>
+            <TextField
+              type="number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            {errors.phone && <div style={{ color: 'red' }}>{errors.phone}</div>}
+            <div>年齢</div>
+            <TextField
+              type="number"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+            />
+            {errors.age && <div style={{ color: 'red' }}>{errors.age}</div>}
 
-      <br/>
-      <div>直前の編集</div>
-      <div>{result}</div>
-      <br/>
-      <button onClick={handleNext}>次へ</button>
+            <div>{name}</div>
+            <div>{email}</div>
+            <div>{phone}</div>
+            <div>{age}</div>
 
-      <br/><br/>
+            <br/>
+            <Button variant="contained" onClick={handleNext}>次へ</Button>
+            <br/><br/>
+            </Stack>
+          </CardContent>
+        </Card>
+      </Box>
       <FooterComponents />
     </div>
   );

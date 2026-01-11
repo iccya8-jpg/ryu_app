@@ -1,6 +1,8 @@
 import { db } from '@/lib/db';
+import { logger } from '@/lib/logger';
 
 export async function GET() {
+  logger.info('ユーザー一覧取得API呼び出し');
   console.log("テーブル情報を取得します");
   const [rows] = await db.query(
     'SELECT id, name, email, phone, age, created_at, updated_at FROM customers'
@@ -10,6 +12,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  logger.info('ユーザー登録API呼び出し');
   console.log("テーブル情報を更新します");
   try {
     const body = await req.json();
@@ -29,6 +32,7 @@ export async function POST(req: Request) {
 
     return Response.json({ success: true });
   } catch (err) {
+    logger.error('ユーザー登録APIでエラー');
     console.error(err);
     return new Response(
       JSON.stringify({ message: 'server error' }),
