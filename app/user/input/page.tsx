@@ -6,6 +6,7 @@ import HeaderComponents from '@/components/HeaderComponents';
 import FooterComponents from '@/components/FooterComponents';
 import { validateUserForm } from '@/app/lib/Validation';
 import type { ValidationErrors } from '@/app/lib/Validation';
+import { useUserFormStore } from '@/stores/useUserFormStore';
 import {
   Box,
   Card,
@@ -20,10 +21,7 @@ export default function InputPage() {
 
   const router = useRouter();
   
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [age, setAge] = useState('');
+  const { form, setField } = useUserFormStore();
 
   // エラー
   const [errors, setErrors] = useState<ValidationErrors>({});
@@ -32,17 +30,17 @@ export default function InputPage() {
   const handleNext = () => {
     console.log('次へボタン押下');
     const newErrors = validateUserForm({
-      name,
-      email,
-      phone,
-      age,
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      age: form.age,
     });
   
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length !== 0) return;
       router.push(
-        `/user/confirm?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&age=${encodeURIComponent(age)}`
+        `/user/confirm`
     );
   };
 
@@ -69,36 +67,31 @@ export default function InputPage() {
             <div>氏名</div>
             <TextField
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={form.name}
+              onChange={(e) => setField('name', e.target.value)}
             />
             {errors.name && <div style={{ color: 'red' }}>{errors.name}</div>}
             <div>メールアドレス</div>
             <TextField
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={form.email}
+              onChange={(e) => setField('email', e.target.value)}
             />
             {errors.email && <div style={{ color: 'red' }}>{errors.email}</div>}
             <div>電話番号</div>
             <TextField
               type="number"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={form.phone}
+              onChange={(e) => setField('phone', e.target.value)}
             />
             {errors.phone && <div style={{ color: 'red' }}>{errors.phone}</div>}
             <div>年齢</div>
             <TextField
               type="number"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
+              value={form.age}
+              onChange={(e) => setField('age', e.target.value)}
             />
             {errors.age && <div style={{ color: 'red' }}>{errors.age}</div>}
-
-            <div>{name}</div>
-            <div>{email}</div>
-            <div>{phone}</div>
-            <div>{age}</div>
 
             <br/>
             <Button variant="contained" onClick={handleNext}>次へ</Button>
