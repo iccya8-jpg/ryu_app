@@ -13,6 +13,8 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.7",
     "@mui/material": "^7.3.7",
+    "@mui/x-data-grid": "^8.24.0",
+    "@tanstack/react-table": "^8.21.3",
     "mysql2": "^3.16.0",
     "next": "16.1.1",
     "react": "19.2.3",

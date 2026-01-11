@@ -1,6 +1,8 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import HeaderComponents from '@/components/HeaderComponents';
+import FooterComponents from '@/components/FooterComponents';
 
 export default function ConfirmPage() {
     
@@ -30,6 +32,9 @@ export default function ConfirmPage() {
 
   return (
     <div>
+      <HeaderComponents 
+        systemName="顧客管理システム"
+        userName="山田 太郎"/>
       <h2>確認画面</h2>
 
       <p>氏名：{name}</p>
@@ -39,6 +44,9 @@ export default function ConfirmPage() {
 
       <button onClick={() => router.back()}>戻る</button>
       <button onClick={handleSubmit}>登録</button>
+      <FooterComponents 
+        systemName="kobayashi@gmail.co.jp"
+      />
     </div>
   );
 }

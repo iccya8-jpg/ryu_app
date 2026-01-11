@@ -108,7 +108,7 @@ export default function InputPage() {
         </Card>
       </Box>
       <FooterComponents 
-        systemName="小林フッダ"
+        systemName="kobayashi@gmail.co.jp"
       />
     </div>
   );
