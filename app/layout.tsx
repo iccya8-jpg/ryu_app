@@ -1,16 +1,8 @@
-'use client';
-
-import { ThemeProvider, CssBaseline } from '@mui/material';
-import { theme } from '@/theme/theme';
-
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
       <body>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );

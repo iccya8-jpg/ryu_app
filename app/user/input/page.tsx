@@ -107,7 +107,9 @@ export default function InputPage() {
           </CardContent>
         </Card>
       </Box>
-      <FooterComponents />
+      <FooterComponents 
+        systemName="小林フッダ"
+      />
     </div>
   );
 }
